@@ -1,0 +1,62 @@
+May 18, 2020
+
+Add MinGW PATH to system and user environment variables 
+
+TextPad Configure\Preferences\Tools Settings:
+
+MinGW C/C++ Compiler Compile:
+
+Command: C:\Program Files (x86)\mingw-w64\i686-7.3.0-posix-dwarf-rt_v5-rev0\mingw32\bin\gcc.exe
+
+Parameters: $File -o $BaseName
+
+Initial Folder: $FileDir
+
+Regular Expression to match output: ^\(..[^:]+\):\([0-9]+\):
+
+CMD.EXE Run:
+
+Command: C:\Windows\System32\cmd.exe
+
+Parameters: $BaseName.exe
+
+Initial Folder: $FileDir
+
+##############
+https://www.systutorials.com/generate-a-mixed-source-and-assembly-listing-using-gcc/
+
+July 14, 2020
+
+Generate assembly list mixed with the source code
+Just add these gcc compile options:
+
+-Wa,-adhln -g
+
+The command:
+
+$ gcc -Wa,-adhln -g source_code.c > assembly_list.s
+
+The options:
+
+-g: Produce debugging information
+-Wa,option: Pass option as an option to the assembler
+-adhln:
+a: turn on listings
+d: omit debugging directives
+n: omit forms processing
+h: include high-level source
+l: include assembly
+
+Command line:
+
+C:\training\c_exercises\subroutine>arm-none-eabi-gcc ex_subroutine.c -o ex_subroutine.exe -O0 -Wa,-adhlns="ex_subroutine.lst" -g 
+
+https://gcc.gnu.org/onlinedocs/gcc-5.2.0/gcc/ARM-Options.html
+
+-O0 no optimization flag
+
+TextPad:
+
+$File -o $BaseName -Wa,-adhln -g
+
+$File -o $BaseName -Wa,-adhlns="$BaseName.lst" -g
