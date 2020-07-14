@@ -1,0 +1,128 @@
+   1              		.cpu arm7tdmi
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 0
+  10              		.eabi_attribute 18, 4
+  11              		.file	"ex_subroutine.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.align	2
+  16              		.global	second_sub
+  17              		.arch armv4t
+  18              		.syntax unified
+  19              		.arm
+  20              		.fpu softvfp
+  22              	second_sub:
+  23              	.LFB0:
+  24              		.file 1 "C:\\training\\c_exercises\\subroutine\\ex_subroutine.c"
+   1:C:\training\c_exercises\subroutine\ex_subroutine.c **** /* Noel S Cruz	July 14, 2020
+   2:C:\training\c_exercises\subroutine\ex_subroutine.c **** 
+   3:C:\training\c_exercises\subroutine\ex_subroutine.c ****    ex_subroutine.c Demonstrates subroutine calling. Starting from main calling first_sub
+   4:C:\training\c_exercises\subroutine\ex_subroutine.c ****    and first_sub calling second_sub. We generate assembly listing to show first_sub
+   5:C:\training\c_exercises\subroutine\ex_subroutine.c ****    preserving context by cpu automatically saving registers according to eabi before
+   6:C:\training\c_exercises\subroutine\ex_subroutine.c ****    yielding control to second_sub. */
+   7:C:\training\c_exercises\subroutine\ex_subroutine.c **** 
+   8:C:\training\c_exercises\subroutine\ex_subroutine.c **** void second_sub(){
+  25              		.loc 1 8 18
+  26              		.cfi_startproc
+  27              		@ Function supports interworking.
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 1, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31 0000 04B02DE5 		str	fp, [sp, #-4]!
+  32              		.cfi_def_cfa_offset 4
+  33              		.cfi_offset 11, -4
+  34 0004 00B08DE2 		add	fp, sp, #0
+  35              		.cfi_def_cfa_register 11
+   9:C:\training\c_exercises\subroutine\ex_subroutine.c **** }
+  36              		.loc 1 9 1
+  37 0008 0000A0E1 		nop
+  38 000c 00D08BE2 		add	sp, fp, #0
+  39              		.cfi_def_cfa_register 13
+  40              		@ sp needed
+  41 0010 04B09DE4 		ldr	fp, [sp], #4
+  42              		.cfi_restore 11
+  43              		.cfi_def_cfa_offset 0
+  44 0014 1EFF2FE1 		bx	lr
+  45              		.cfi_endproc
+  46              	.LFE0:
+  48              		.align	2
+  49              		.global	first_sub
+  50              		.syntax unified
+  51              		.arm
+  52              		.fpu softvfp
+  54              	first_sub:
+  55              	.LFB1:
+  10:C:\training\c_exercises\subroutine\ex_subroutine.c **** 
+  11:C:\training\c_exercises\subroutine\ex_subroutine.c **** void first_sub(){
+  56              		.loc 1 11 17
+  57              		.cfi_startproc
+  58              		@ Function supports interworking.
+  59              		@ args = 0, pretend = 0, frame = 0
+  60              		@ frame_needed = 1, uses_anonymous_args = 0
+  61 0018 00482DE9 		push	{fp, lr}
+  62              		.cfi_def_cfa_offset 8
+  63              		.cfi_offset 11, -8
+  64              		.cfi_offset 14, -4
+  65 001c 04B08DE2 		add	fp, sp, #4
+  66              		.cfi_def_cfa 11, 4
+  12:C:\training\c_exercises\subroutine\ex_subroutine.c ****     second_sub();
+  67              		.loc 1 12 5
+  68 0020 FEFFFFEB 		bl	second_sub
+  13:C:\training\c_exercises\subroutine\ex_subroutine.c **** }
+  69              		.loc 1 13 1
+  70 0024 0000A0E1 		nop
+  71 0028 04D04BE2 		sub	sp, fp, #4
+  72              		.cfi_def_cfa 13, 8
+  73              		@ sp needed
+  74 002c 0048BDE8 		pop	{fp, lr}
+  75              		.cfi_restore 14
+  76              		.cfi_restore 11
+  77              		.cfi_def_cfa_offset 0
+  78 0030 1EFF2FE1 		bx	lr
+  79              		.cfi_endproc
+  80              	.LFE1:
+  82              		.align	2
+  83              		.global	main
+  84              		.syntax unified
+  85              		.arm
+  86              		.fpu softvfp
+  88              	main:
+  89              	.LFB2:
+  14:C:\training\c_exercises\subroutine\ex_subroutine.c **** 
+  15:C:\training\c_exercises\subroutine\ex_subroutine.c **** int main(){
+  90              		.loc 1 15 11
+  91              		.cfi_startproc
+  92              		@ Function supports interworking.
+  93              		@ args = 0, pretend = 0, frame = 0
+  94              		@ frame_needed = 1, uses_anonymous_args = 0
+  95 0034 00482DE9 		push	{fp, lr}
+  96              		.cfi_def_cfa_offset 8
+  97              		.cfi_offset 11, -8
+  98              		.cfi_offset 14, -4
+  99 0038 04B08DE2 		add	fp, sp, #4
+ 100              		.cfi_def_cfa 11, 4
+  16:C:\training\c_exercises\subroutine\ex_subroutine.c ****     first_sub();
+ 101              		.loc 1 16 5
+ 102 003c FEFFFFEB 		bl	first_sub
+ 103              	.L4:
+  17:C:\training\c_exercises\subroutine\ex_subroutine.c **** 	while(1);
+ 104              		.loc 1 17 7 discriminator 1
+ 105 0040 FEFFFFEA 		b	.L4
+ 106              		.cfi_endproc
+ 107              	.LFE2:
+ 109              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 ex_subroutine.c
+C:\Users\notor\AppData\Local\Temp\ccJY1Maj.s:15     .text:00000000 $a
+C:\Users\notor\AppData\Local\Temp\ccJY1Maj.s:22     .text:00000000 second_sub
+C:\Users\notor\AppData\Local\Temp\ccJY1Maj.s:54     .text:00000018 first_sub
+C:\Users\notor\AppData\Local\Temp\ccJY1Maj.s:88     .text:00000034 main
+
+NO UNDEFINED SYMBOLS
