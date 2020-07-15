@@ -68,44 +68,75 @@ above.
 C Program:
 
 void second_sub(){
+
 }
 
 void first_sub(){
+
     second_sub();
+    
 }
 
 int main(){
+
     first_sub();
+    
 	while(1);
+	
 }
 
 Assembly Snippet:
 
   11:C:\training\c_exercises\subroutine\ex_subroutine.c **** void first_sub(){
+  
   56              		.loc 1 11 17
+  
   57              		.cfi_startproc
+  
   58              		@ Function supports interworking.
+  
   59              		@ args = 0, pretend = 0, frame = 0
+  
   60              		@ frame_needed = 1, uses_anonymous_args = 0
+  
   61 0018 00482DE9 		push	{fp, lr}
+  
   62              		.cfi_def_cfa_offset 8
+  
   63              		.cfi_offset 11, -8
+  
   64              		.cfi_offset 14, -4
+  
   65 001c 04B08DE2 		add	fp, sp, #4
+  
   66              		.cfi_def_cfa 11, 4
+  
   12:C:\training\c_exercises\subroutine\ex_subroutine.c ****     second_sub();
+  
   67              		.loc 1 12 5
+  
   68 0020 FEFFFFEB 		bl	second_sub
+  
   13:C:\training\c_exercises\subroutine\ex_subroutine.c **** }
+  
   69              		.loc 1 13 1
+  
   70 0024 0000A0E1 		nop
+  
   71 0028 04D04BE2 		sub	sp, fp, #4
+  
   72              		.cfi_def_cfa 13, 8
+  
   73              		@ sp needed
+  
   74 002c 0048BDE8 		pop	{fp, lr}
+  
   75              		.cfi_restore 14
+  
   76              		.cfi_restore 11
+  
   77              		.cfi_def_cfa_offset 0
+  
   78 0030 1EFF2FE1 		bx	lr
 
 I included some posts for reference.
