@@ -45,6 +45,7 @@ subroutine was called. Thus, to return from subroutine we should use the followi
 instruction:
 
 BX LR        ; Return to the instruction that called the subroutine
+
 MOV PC, LR   ; Same as BX LR
 
 A programmer designs subroutines in assembly considering three special issues.
@@ -55,10 +56,13 @@ A programmer designs subroutines in assembly considering three special issues.
    so it can safely return to normal execution after it finishes the subroutine. The CPU
    will copy address of callee function to PC so it can jump execution to the callee.
 2) Second, it restores the environment by popping off the stack after encountering BX LR.
-3) To facilitate sharing of code and such that a C program can call these subroutines,
-   the ABI and EABI standard should be followed such prescribed protocols of parameter
-   passing and returning values are performed in compliance. For example, registers to 
-   use for passing parameters in arguments should be r0, r1, r2, and r3, etc.
+3) To facilitate sharing of code and such that C, C++, and Assembly programs can call 
+   these subroutines, the ABI and EABI standard should be followed such prescribed 
+   protocols of parameter passing and returning values are performed in compliance. For
+   example, registers to use for passing parameters in arguments and returning values
+   should be r0, r1, r2, and r3, registers r4 r8, r10, and r11 are normally used to hold
+   the values of a routine's local variables, ARM and THUMB C and C++ compilers always
+   use a full descending stack and it must be eight-byte aligned, to name a few.
 
 We can also nest subroutines. To do this, I have written an example code to demonstrate.
 
