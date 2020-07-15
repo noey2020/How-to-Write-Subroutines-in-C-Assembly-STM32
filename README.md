@@ -64,6 +64,11 @@ A programmer designs subroutines in assembly considering three special issues.
    the values of a routine's local variables, ARM and THUMB C and C++ compilers always
    use a full descending stack and it must be eight-byte aligned, to name a few.
 
+ARM supports different branch instructions for conditional executions. Depending on the
+condition, these instructions transfer the control from one part of the program to other.
+Unlike Branch-and-Link (BL) instruction they do not save contents of Program counter (PC)
+register to the Link Register (LR).
+
 We can also nest subroutines. To do this, I have written an example code to demonstrate.
 
 The C code generated the assembly listing exactly the same as the concepts presented
