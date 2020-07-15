@@ -55,6 +55,7 @@ A programmer designs subroutines in assembly considering three special issues.
    non-contiguous code section, it must save the PC + 4 address to the Link Register (LR)
    so it can safely return to normal execution after it finishes the subroutine. The CPU
    will copy address of callee function to PC so it can jump execution to the callee.
+   The BL instruction is 32bits/4bytes long and PC is incremented by 4 so PC + 4.
 2) Second, it restores the environment by popping off the stack after encountering BX LR.
 3) To facilitate sharing of code and such that C, C++, and Assembly programs can call 
    these subroutines, the ABI and EABI standard should be followed such prescribed 
@@ -72,7 +73,7 @@ register to the Link Register (LR).
 We can also nest subroutines. To do this, I have written an example code to demonstrate.
 
 The C code generated the assembly listing exactly the same as the concepts presented
-above.
+above. You can view it also from Debug's Disassembly window or from fromelf or objdump.
 
 C Program:
 
