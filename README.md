@@ -58,7 +58,7 @@ A programmer designs subroutines in assembly considering three special issues.
    The BL instruction is 32bits/4bytes long and PC is incremented by 4 so PC + 4.
 2) Second, it restores the environment by popping off the stack after encountering BX LR.
 3) To facilitate sharing of code and such that C, C++, and Assembly programs can call 
-   these subroutines, the ABI and EABI standard should be followed such prescribed 
+   these subroutines, the ABI and EABI standard should be followed and such prescribed 
    protocols of parameter passing and returning values are performed in compliance. For
    example, registers to use for passing parameters in arguments and returning values
    should be r0, r1, r2, and r3, registers r4 r8, r10, and r11 are normally used to hold
@@ -70,7 +70,22 @@ condition, these instructions transfer the control from one part of the program 
 Unlike Branch-and-Link (BL) instruction they do not save contents of Program counter (PC)
 register to the Link Register (LR).
 
-We can also nest subroutines. To do this, I have written an example code to demonstrate.
+We can also nest subroutines. To do this, I have written an example code to demonstrate
+nesting. A gist of branching follows. From main, it calls first_sub(), and in turn 
+first_sub() calls second_sub(), finally returning back to main line of execution after 
+branching out and holed up in an infinite while loop. We see from the previous 
+explanation that when first_sub() branches, the CPU automatically saves the current PC
+contents to LR, places the address of first line of first_sub() into PC, and finally
+storing the address of first line of first_sub(). We didn't to write any additional code.
+So to nest to another subroutine, meaning first_sub() calls second_sub(), a caveat is
+needed. Before branching out to first line of second_sub(), our software MUST preserve
+the LR register onto stack(or to memory somewhere, but that would complicate software
+and require additional code and prety easy using stack data structure) or push LR into
+stack so it can return properly to main. If our software doesn't do that, the CPU will
+overwrite, hence the return address for first_sub()) will be lost) when it pushes PC + 4
+into LR and place the address of first line of second_sub() in PC. Again, the difference 
+is we write in our software to push the LR to protect the return address of previous
+caller.
 
 The C code generated the assembly listing exactly the same as the concepts presented
 above. You can view it also from Debug's Disassembly window or from fromelf or objdump.
